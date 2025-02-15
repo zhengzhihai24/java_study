@@ -9,6 +9,7 @@ public class 数组类 {
         ArrayList<String> list = new ArrayList<>();
         list.add("hello");
         list.add("world");
+        System.out.println(list);
         System.out.println(list.toString());
         for(String str :list){
             System.out.println(str);
