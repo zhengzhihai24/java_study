@@ -71,5 +71,13 @@ public class 文件IO读取练习 {
             throw new RuntimeException(e);
         }
 
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file1))) {
+            bufferedWriter.write("老八蜜汁小憨包");
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
