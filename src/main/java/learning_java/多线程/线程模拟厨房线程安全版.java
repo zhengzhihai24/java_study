@@ -3,6 +3,7 @@ package learning_java.多线程;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeUnit;
 
 class Kitchen2{
     private final BlockingQueue<String> dishes;
@@ -18,18 +19,28 @@ class Kitchen2{
     }
 
     public void addDish(String ChefName) throws InterruptedException {
-        if(dishes.remainingCapacity()==0){
-            System.out.println("库存已满,"+ChefName+"正在休息");
+        synchronized (this) {
+            if (!dishes.offer("菜", 1, TimeUnit.SECONDS)) {
+                System.out.println("库存已满," + ChefName + "正在休息");
+            } else {
+                System.out.println(ChefName + "做了一道菜,当前库存为:" + dishes.size());
+            }
+//        dishes.put("菜");
         }
-        dishes.put("菜");
         Thread.sleep(3000);
-        System.out.println(ChefName +"做了一道菜,当前库存为:"+dishes.size());
     }
 
     public void eatDish(String CustomerName) throws InterruptedException {
-        dishes.take();
+        String dish;
+        synchronized (this) {
+            dish = dishes.poll(3, TimeUnit.SECONDS);
+            if (dish != null) {
+                System.out.println(CustomerName + "吃了一道菜,当前库存为:" + dishes.size());
+            } else {
+                System.out.println(CustomerName + "等太久了,走了");
+            }
+        }
         Thread.sleep(4000);
-        System.out.println(CustomerName +"吃了一道菜,当前库存为:"+dishes.size());
     }
 }
 
