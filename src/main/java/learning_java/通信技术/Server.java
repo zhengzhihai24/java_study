@@ -19,7 +19,6 @@ public class Server {
                 System.out.println(hostAddress+":"+line);
                 bufferedWriter.write("服务器接收到你的消息："+line+"\r\n");
                 bufferedWriter.flush();
-
             }
 
 
