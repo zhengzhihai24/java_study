@@ -3,8 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="testMapper">
-    <select id="selectAllUser" resultType="learning_java.数据库.User">
-        select id,name,age from students
+    <select id="selectAllUser" resultType="User">
+        select id,name,age ,email,created_at from students
     </select>
+    <select id="selectUserById" resultType="User">
+        select id,name,age,email,created_at from students where id = #{id}
+    </select>
+    
+    <select id="selectUserByAgeandgender" resultType="User">
+        select id,name,age,email,created_at from students where age = #{age} and gender = #{gender}
+    </select>
+    <select id="selectUserAgeOver" resultType="User">
+        select id,name,age,email,created_at from students where age &lt;= #{age};
+    </select>
+
 
 </mapper>
