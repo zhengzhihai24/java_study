@@ -9,6 +9,9 @@ public class mybatis_test2 {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
             TestMapper mapper = sqlSession.getMapper(TestMapper.class);
             System.out.println(mapper.selectUserById(1));
+
+
+
         }
     }
 }
