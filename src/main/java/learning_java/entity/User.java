@@ -11,4 +11,6 @@ public class User {
     int age ;
     String email ;
     Date createdAt ;
+    UserDetail userDetail ;
+
 }

@@ -3,11 +3,23 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="learning_java.mapper.TestMapper">
-    <select id="selectAllUser" resultType="User">
+    <select id="selectAllUser" resultType="User" >
         select id,name,age ,email,created_at from students
     </select>
-    <select id="selectUserById" resultType="User">
+    <select id="selectUserById" resultType="User" resultMap="GetDetail">
         select id,name,age,email,created_at from students where id = #{id}
+    </select>
+    <resultMap id="GetDetail" type="User">
+        <id column="id" property="id"/>
+        <result column="student_id" property="studentId"/>
+        <result column="age" property="age"/>
+        <result column="email" property="email"/>
+        <result column="created_at" property="createdAt"/>
+        <association property="userDetail" column="id" select="selectUserDetailById"/>
+    </resultMap>
+
+    <select id="selectUserDetailById" resultType="UserDetail">
+        select * from student_detail where student_id = #{student_id};
     </select>
     
     <select id="selectUserByAgeandgender" resultType="User">
@@ -16,6 +28,8 @@
     <select id="selectUserAgeOver" resultType="User">
         select id,name,age,email,created_at from students where age &lt;= #{age};
     </select>
+
+
 
 
 </mapper>
